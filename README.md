@@ -15,12 +15,12 @@ aws9Chart은 https://github.com/jinnse/aws9toy aws9toy를 구성한 클러스터
 ├── charts
 ├── Chart.yaml
 ├── templates
-│   ├── deploy.yml
-│   ├── hpa.yml
-│   ├── ingress.yml
-│   ├── pvc.yml
-│   ├── README.md
-│   └── svc.yml
+│ ├── deploy.yml
+│ ├── hpa.yml
+│ ├── ingress.yml
+│ ├── pvc.yml
+│ ├── README.md
+│ └── svc.yml
 └── values.yaml
 
 ## 설치방법

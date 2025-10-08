@@ -1,0 +1,102 @@
+apps:
+  - name: blog
+    namespace: aws9b
+    image: jinsse/aws9:blog
+    pvc: 9b-pvc
+    svcName: aws9b-svc-blog
+    port: 80
+    type: LoadBalancer
+    replicaCount: 1
+    app: blog
+    targetport: 80
+    volume: myvol1
+
+  - name: shop
+    namespace: aws9b
+    image: jinsse/aws9:shop
+    pvc: 9b-pvc
+    svcName: aws9b-svc-shop
+    port: 80
+    type: LoadBalancer
+    replicaCount: 1
+    app: shop
+    targetport: 80
+    volume: myvol1
+
+  - name: news
+    namespace: aws9b
+    image: jinsse/aws9:news
+    pvc: 9b-pvc
+    svcName: aws9b-svc-news
+    port: 80
+    type: LoadBalancer
+    replicaCount: 1
+    app: news
+    targetport: 80
+    volume: myvol1
+
+pvc:
+  name: 9b-pvc
+  scclass: 9b-sc
+  access: ReadWriteMany
+  namespace: aws9b
+
+hpa:
+  - name: cron-blog
+    pollingInterval: 30
+    cooldownPeriod: 300
+    minReplicaCount: 1
+    maxReplicaCount: 6
+    timezone: "Asia/Seoul"
+    start: "00 09 * * *"
+    end: "00 18 * * *"
+    desiredReplicas: "3"
+    targetApp: blog
+    namespace: aws9b
+
+  - name: cron-shop
+    pollingInterval: 30
+    cooldownPeriod: 300
+    minReplicaCount: 1
+    maxReplicaCount: 6
+    timezone: "Asia/Seoul"
+    start: "00 09 * * *"
+    end: "00 18 * * *"
+    desiredReplicas: "3"
+    targetApp: shop
+    namespace: aws9b
+
+  - name: cron-news
+    pollingInterval: 30
+    cooldownPeriod: 300
+    minReplicaCount: 1
+    maxReplicaCount: 6
+    timezone: "Asia/Seoul"
+    start: "00 09 * * *"
+    end: "00 18 * * *"
+    desiredReplicas: "3"
+    targetApp: news
+    namespace: aws9b
+ingress: 
+  host: www.aws9.pri
+  className: nginx
+  name: aws9-portal
+  namespace: aws9b
+  rule:
+    - name: aws9b-svc-blog
+      path: /shop(/|$)(.*)
+      pathType: ImplementationSpecific
+      number: 80
+
+    - name: aws9b-svc-shop
+      path: /shop(/|$)(.*)
+      pathType: ImplementationSpecific
+      number: 80
+
+    - name: aws9b-svc-news
+      path: /shop(/|$)(.*)
+      pathType: ImplementationSpecific
+      number: 80
+
+    
+    

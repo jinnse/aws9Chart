@@ -1,0 +1,19 @@
+{{- range .Values.apps }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .svcName }}
+  namespace: {{ .namespace }}
+  labels:
+    app.kubernetes.io/instance: aws9toy
+spec:
+  type: {{ .type }}
+  selector:
+    app: {{ .name }}
+  ports:
+    - port: {{ .port }}
+      protocol: TCP
+      targetPort: {{ .targetport }}
+
+---
+{{- end }}

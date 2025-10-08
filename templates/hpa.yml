@@ -1,0 +1,26 @@
+{{- range .Values.hpa }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+spec:
+  scaleTargetRef:
+    name: {{ .targetApp }}-deploy
+  pollingInterval: {{ .pollingInterval }}
+  cooldownPeriod: {{ .cooldownPeriod }}
+  minReplicaCount: {{ .minReplicaCount }}
+  maxReplicaCount: {{ .maxReplicaCount }}
+  triggers:
+    - type: cron
+      metadata:
+        timezone: {{ .timezone }}
+        start: {{ .start }}
+        end: {{ .end }}
+        desiredReplicas: "{{ .desiredReplicas }}"
+    - type: cpu
+      metadata:
+        type: Utilization
+        value: "60"
+---
+{{- end }}

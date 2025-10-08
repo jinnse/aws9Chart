@@ -1,0 +1,38 @@
+{{- range .Values.apps }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}-deploy
+  namespace: {{ .namespace }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}-ctna
+          image: {{ .image }}
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: {{ .volume }}
+              mountPath: /usr/share/nginx/html/data
+      volumes:
+        - name: {{ .volume }}
+          persistentVolumeClaim:
+            claimName: 9b-pvc  # ← 여기가 PVC 이름
+
+
+---
+{{- end }}

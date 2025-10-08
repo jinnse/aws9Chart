@@ -1,7 +1,7 @@
 apps:
   - name: blog
     namespace: aws9b
-    image: jinsse/aws9:blog
+    image: harbor.aws9.pri/aws9btoy/blog:blog
     pvc: 9b-pvc
     svcName: aws9b-svc-blog
     port: 80
@@ -13,7 +13,7 @@ apps:
 
   - name: shop
     namespace: aws9b
-    image: jinsse/aws9:shop
+    image: harbor.aws9.pri/aws9btoy/shop:shop
     pvc: 9b-pvc
     svcName: aws9b-svc-shop
     port: 80
@@ -25,7 +25,7 @@ apps:
 
   - name: news
     namespace: aws9b
-    image: jinsse/aws9:news
+    image: harbor.aws9.pri/aws9btoy/news:news
     pvc: 9b-pvc
     svcName: aws9b-svc-news
     port: 80

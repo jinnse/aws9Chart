@@ -1,5 +1,8 @@
 # aws9Chart
 aws9Chart은 https://github.com/jinnse/aws9toy aws9toy를 구성한 클러스터를 Helm Chart를 이용해서 배포합니다 
+
+---
+
 ## 사전 준비 사항
 - Kubernetes 클러스터 구축
   - master, node1, node2, node3 형태로 구성
@@ -10,8 +13,10 @@ aws9Chart은 https://github.com/jinnse/aws9toy aws9toy를 구성한 클러스터
 - Harbor 설치
   - 이미지 접근 가능하도록
 
+---
 
 ## 디렉토리 구성
+```bash
 ├── charts
 ├── Chart.yaml
 ├── templates
@@ -22,6 +27,9 @@ aws9Chart은 https://github.com/jinnse/aws9toy aws9toy를 구성한 클러스터
 │ ├── README.md
 │ └── svc.yml
 └── values.yaml
+```
+
+---
 
 ## 설치방법
 ```bash
